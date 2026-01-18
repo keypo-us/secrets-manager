@@ -1,0 +1,12 @@
+{
+    "Version": "1.0.0",    
+    "KeypoApiUrl": "https://api.keypo.io",
+    "RegistryContractAddress": "0x8370eE1a51B5F31cc10E2f4d786Ff20198B10BBE",
+    "DefaultValidationContractAddress": "0x35ADB6b999AbcD5C9CdF2262c7190C7b96ABcE4C",
+    "DefaultLitActionCID": "QmZSXvjHKYxM3hsfQcA3WDji2usjvk9Tv6R6t9HSbTRjNw",
+    "DefaultJSONRPC": "https://sepolia.base.org",
+    "ChainId": "84532",
+    "Chain": "baseSepolia",
+    "GetFileDataByOwnerSubGraph": "https://gateway.thegraph.com/api/subgraphs/id/3DYoVYkrq6vHDufNpczKRWrPCkhoopeKz4o3sYkhK229",
+    "IPFSBaseUrl": "https://ipfs.io/ipfs/"
+}

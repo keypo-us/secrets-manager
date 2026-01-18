@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0 0;
+  --foreground: 255 237 213;
+  --card: 0 0 0;
+  --card-foreground: 255 237 213;
+  --popover: 0 0 0;
+  --popover-foreground: 255 237 213;
+  --primary: 251 146 60;
+  --primary-foreground: 0 0 0;
+  --secondary: 251 146 60;
+  --secondary-foreground: 0 0 0;
+  --muted: 38 38 38;
+  --muted-foreground: 163 163 163;
+  --accent: 38 38 38;
+  --accent-foreground: 255 237 213;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 251 146 60;
+  --input: 38 38 38;
+  --ring: 251 146 60;
+  --radius: 0.25rem;
+  --font-jetbrains-mono: "JetBrains Mono", "Fira Code", "Consolas", "Monaco", monospace;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-jetbrains-mono);
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    --privy-font-family: "JetBrains Mono", "Fira Code", "Consolas", "Monaco", monospace;
+    --privy-color-foreground: #ffedd5;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fb923c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f97316;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(251, 146, 60, 0.3);
+  color: #ffedd5;
+}
+
+/* Terminal cursor animation */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Scan lines effect */
+@keyframes scanlines {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fb923c, transparent);
+  animation: scanlines 3s linear infinite;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0e06 100%);
+}
+
+.dot-ellipsis {
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+}
+.dot-ellipsis span {
+  opacity: 0;
+  animation: ellipsis-blink 1.2s infinite;
+}
+.dot-ellipsis span:nth-child(1) { animation-delay: 0s; }
+.dot-ellipsis span:nth-child(2) { animation-delay: 0.2s; }
+.dot-ellipsis span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes ellipsis-blink {
+  0%, 100% { opacity: 0; }
+  20% { opacity: 1; }
+  60% { opacity: 0; }
+}
+
+@keyframes dots {
+  0%, 20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dots-1s-infinite-0-33s {
+  0%, 20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dots-1s-infinite-0-66s {
+  0%, 20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "key-manager",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.2.6",
+    "@keypo/typescript-sdk": "^1.0.36",
+    "@lit-protocol/auth-browser": "^7.2.0",
+    "@lit-protocol/auth-helpers": "^7.2.0",
+    "@lit-protocol/constants": "^7.2.0",
+    "@lit-protocol/encryption": "^7.2.0",
+    "@lit-protocol/lit-node-client": "^7.2.0",
+    "@lit-protocol/types": "^7.2.0",
+    "@privy-io/react-auth": "^2.14.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "@vercel/analytics": "^1.5.0",
+    "@zerodev/sdk": "^5.4.37",
+    "email-validator": "^2.0.4",
+    "ethers": "^5.8.0",
+    "next": "15.3.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "viem": "^2.31.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.3",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5"
+  }
+}
