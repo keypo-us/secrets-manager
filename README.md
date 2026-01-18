@@ -97,7 +97,7 @@ npm run start
 
 ## Using the Keypo CLI
 
-After uploading secrets, you can retrieve them programmatically using the Keypo CLI.
+After uploading secrets, you can retrieve them programmatically using the Keypo CLI. Please follow the steps in the "Use Secrets In Your Code" tab.
 
 ### 1. Install the CLI
 
