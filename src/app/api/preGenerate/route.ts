@@ -26,11 +26,15 @@ export async function POST(req: NextRequest) {
         linked_accounts: [
           { address: email, type: 'email' }
         ],
-        create_embedded_wallet: true
+        wallets: [
+          { chain_type: 'ethereum' }
+        ]
       })
     });
     if (!createRes.ok) {
-      throw new Error(`Privy API error: ${createRes.statusText}`);
+      const errorBody = await createRes.text();
+      console.error('Privy API error response:', createRes.status, errorBody);
+      throw new Error(`Privy API error: ${createRes.statusText} - ${errorBody}`);
     }
     const createData = await createRes.json();
     return NextResponse.json({ user: createData, walletCreated: true });

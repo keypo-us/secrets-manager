@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Secrets Manager
 
-## Getting Started
+A web application for managing encrypted secrets and environment files using blockchain infrastructure. Users authenticate via email, encrypt secrets using Lit Protocol, and store them on-chain via the Keypo SDK.
 
-First, run the development server:
+## Features
+
+- **Upload Secrets** - Parse `.env` files, encrypt via Lit Protocol, and store on-chain
+- **Manage Secrets** - View, update, delete, or share encrypted data with other users
+- **Use Secrets** - Retrieve secrets programmatically using the Keypo CLI
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router) with React 19
+- **Authentication:** [Privy](https://privy.io) - email-based auth with embedded wallets
+- **Encryption:** [Lit Protocol](https://litprotocol.com) - decentralized encryption/decryption
+- **Storage:** [Keypo SDK](https://keypo.io) - encrypted data management on-chain
+- **Chain:** Base Sepolia testnet
+- **Account Abstraction:** ZeroDev SDK for gasless transactions
+- **Styling:** Tailwind CSS
+
+## Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- A [Privy](https://dashboard.privy.io) account with an app configured
+- A [ZeroDev](https://dashboard.zerodev.app) project
+
+## Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/keypo-us/secrets-manager.git
+cd secrets-manager
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your credentials:
+
+```env
+NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id
+NEXT_PUBLIC_DATA_IDENTIFIER=your_data_identifier
+NEXT_PUBLIC_REGISTRY_CONTRACT_ADDRESS=0x8370eE1a51B5F31cc10E2f4d786Ff20198B10BBE
+NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_BUNDLER_RPC_URL=https://rpc.zerodev.app/api/v3/YOUR_ZERODEV_PROJECT_ID/chain/84532
+NEXT_PUBLIC_VALIDATOR_CONTRACT_ADDRESS=0x35ADB6b999AbcD5C9CdF2262c7190C7b96ABcE4C
+PRIVY_APP_SECRET=your_privy_app_secret
+```
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_PRIVY_APP_ID` | Your Privy application ID from the Privy dashboard |
+| `NEXT_PUBLIC_DATA_IDENTIFIER` | Unique identifier for your data namespace |
+| `NEXT_PUBLIC_REGISTRY_CONTRACT_ADDRESS` | Keypo registry contract on Base Sepolia |
+| `NEXT_PUBLIC_API_URL` | Keypo API URL (use `https://api.keypo.io` for production) |
+| `NEXT_PUBLIC_BUNDLER_RPC_URL` | ZeroDev bundler RPC URL with your project ID |
+| `NEXT_PUBLIC_VALIDATOR_CONTRACT_ADDRESS` | Keypo validator contract address |
+| `PRIVY_APP_SECRET` | Your Privy app secret (server-side only) |
+
+### 4. Configure Privy Dashboard
+
+Ensure your Privy app has the following settings enabled:
+
+- **Login Methods:** Email
+- **Embedded Wallets:** Enabled
+- **User Pregeneration:** Enabled (required for sharing secrets with new users)
+
+## Running the App
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Using the Keypo CLI
 
-To learn more about Next.js, take a look at the following resources:
+After uploading secrets, you can retrieve them programmatically using the Keypo CLI.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Install the CLI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install -g @keypo/cli
+```
 
-## Deploy on Vercel
+### 2. Configure the CLI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+keypo setup
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This will prompt for:
+- **Private Key:** Export from the app using "Export private key" button
+- **RPC URL:** Use `https://sepolia.base.org`
+
+### 3. Sync secrets to a file
+
+Create an input file with placeholders using `${secret_name}` format:
+
+```txt
+# config.txt
+API_KEY=${api_key}
+DATABASE_URL=${database_url}
+```
+
+Run sync to replace placeholders with decrypted values:
+
+```bash
+keypo sync config.txt config-decrypted.txt
+```
+
+### 4. List your secrets
+
+```bash
+keypo list
+```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/              # API routes for Privy backend operations
+│   │   ├── getEmail/     # Get user email from wallet address
+│   │   ├── getWallets/   # Get wallets for a Privy user
+│   │   └── preGenerate/  # Pre-generate wallets for new users
+│   ├── utils/            # Keypo SDK configuration and utilities
+│   └── page.tsx          # Main application page
+├── components/
+│   ├── auth/             # Authentication components (Privy, wallet)
+│   ├── popups/           # Modal dialogs (share, delete, update, etc.)
+│   ├── UploadSecretsTab.tsx
+│   ├── ManageSecretsTab.tsx
+│   └── UseSecretsTab.tsx
+└── public/
+    └── refs.json         # Contract addresses and API configuration
+```
+
+## License
+
+MIT

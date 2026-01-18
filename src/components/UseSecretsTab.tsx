@@ -37,7 +37,7 @@ export function UseSecretsTab() {
   const installCmd = "npm install -g @keypo/cli";
   const setupCmd = "keypo setup";
   const syncCmd = "keypo sync <input-file> <output-file>";
-  const exampleCmd = `# config.txt\nAPI_KEY=${'{api_key}'}\nDATABASE_URL=${'{database_url}'}\n\nkeypo sync config.txt config-decrypted.txt\n\n# config-decrypted.txt will contain:\nAPI_KEY=actual_decrypted_api_key_value\nDATABASE_URL=actual_decrypted_database_url_value`;
+  const exampleCmd = `# config.txt\nAPI_KEY=\${api_key}\nDATABASE_URL=\${database_url}\n\nkeypo sync config.txt config-decrypted.txt\n\n# config-decrypted.txt will contain:\nAPI_KEY=actual_decrypted_api_key_value\nDATABASE_URL=actual_decrypted_database_url_value`;
 
   return (
     <div className="h-screen flex flex-col justify-start overflow-y-auto px-8 py-8">
