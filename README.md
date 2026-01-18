@@ -23,7 +23,7 @@ A web application for managing encrypted secrets and environment files using blo
 - Node.js 18+
 - npm or yarn
 - A [Privy](https://dashboard.privy.io) account with an app configured
-- A [ZeroDev](https://dashboard.zerodev.app) project
+- A [ZeroDev](https://dashboard.zerodev.app) project with paymaster configured for Base Sepolia
 
 ## Setup
 
